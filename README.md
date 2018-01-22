@@ -1,0 +1,2 @@
+# CompProg
+Competitive Programming Assignments
