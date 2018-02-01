@@ -18,13 +18,15 @@ for i in range(numGraphs):
         v2 = int(arr[1])
         if(v1 in graph):
             temp = graph[v1]
-            temp.append(v2)
+            if not (v2 in temp):
+                temp.append(v2)
             graph[v1] = temp
         else:
             graph[v1] = [v2]
         if (v2 in graph):
             temp = graph[v2]
-            temp.append(v1)
+            if not (v1 in temp):
+                temp.append(v1)
             graph[v2] = temp
         else:
             graph[v2] = [v1]
@@ -32,7 +34,7 @@ for i in range(numGraphs):
     #BFS to find connected components
     q = Queue.Queue()
     toDo = graph.keys()
-    count = 0
+    count = numVertex - len(graph.keys()) #Count single nodes
     inRange = []
     findRange = False
     while not (len(toDo) == 0):
@@ -65,5 +67,6 @@ for i in range(numGraphs):
                         inRange.append(neighbor)
         maxDist = maxDist - 1
         count = count + 1
-
+    if(len(inRange) == 0):
+        inRange.append("SINGLE NODE")
     print count, len(inRange)
