@@ -6,8 +6,6 @@ dest = int(arr[0])
 numEdge = int(arr[1])
 graph = {}
 
-for i in range(dest):
-    graph[i + 1] = {dest: sys.maxint}
 
 #Build Graph
 for i in range(numEdge):
@@ -22,6 +20,8 @@ for i in range(numEdge):
                 adjMap[v2] = dist
         else:
             adjMap[v2] = dist
+    else:
+        graph[v1] = {v2: dist}
 
     if v2 in graph.keys():
         adjMap = graph.get(v2)
@@ -37,11 +37,10 @@ for i in range(numEdge):
 class Path():
     def __init__(self):
         self.cost = 0;
-        self.path = ""
-    def __str__(self):
-        return "{ " + str(self.cost) + ": " + self.path + " }"
+        self.prev = sys.maxint
 
 unvisited = graph.keys()
+
 cost = []
 for i in range(dest):
     x = Path()
@@ -50,7 +49,7 @@ for i in range(dest):
 q = Queue.Queue()
 q.put(1)
 cost[0].cost = 0
-cost[0].path = "1"
+cost[0].prev = 0
 unvisited.remove(1)
 while not(q.empty()):
     curr = q.get()
@@ -59,15 +58,21 @@ while not(q.empty()):
     for neighbor in graph.get(curr).keys():
         if currCost + graph.get(curr).get(neighbor) < cost[neighbor - 1].cost :
             cost[neighbor - 1].cost = currCost + graph.get(curr).get(neighbor)
-            cost[neighbor - 1].path = cost[curr - 1].path + " " + str(neighbor)
+            cost[neighbor - 1].prev = curr
 
-            if neighbor in unvisited:
-                q.put(neighbor)
-                unvisited.remove(neighbor)
+        if neighbor in unvisited:
+            q.put(neighbor)
+            unvisited.remove(neighbor)
 
-        cost[neighbor - 1].path + " " + str(curr)
+
 
 if cost[dest - 1].cost == sys.maxint:
     print -1
 else:
-    print cost[dest - 1].path
+    path = [dest]
+    x = cost[dest - 1].prev
+    while not (x == 0):
+        path.append(x)
+        x = cost[x - 1].prev
+    for i in reversed(path):
+        print i,
