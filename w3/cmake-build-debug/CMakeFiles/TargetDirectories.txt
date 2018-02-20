@@ -1,0 +1,3 @@
+/Users/mercury/Documents/Workspace/Freshman Year/CS 104c/w3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/mercury/Documents/Workspace/Freshman Year/CS 104c/w3/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/mercury/Documents/Workspace/Freshman Year/CS 104c/w3/cmake-build-debug/CMakeFiles/w3.dir
